@@ -1,7 +1,3 @@
-board = ["-", "-", "-",
-         "-", "-", "-",
-         "-", "-", "-"]
-
 def print_board():
     print("   " + board[0] + " | " + board[1] + " | " + board[2])
     print("   " + board[3] + " | " + board[4] + " | " + board[5])
@@ -94,7 +90,7 @@ while running:
                     board[location] = "X"
                     turn = "playero"
                 else:
-                    print("Hey, that spot is already taken!")
+                    print("Hey, that spot is already taken!", "red")
             except ValueError:
                 print('\033[93m' + "Please enter a number between 1 and 9" + '\033[0m')
         elif turn == "playero":
