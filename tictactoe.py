@@ -3,9 +3,9 @@ board = ["-", "-", "-",
          "-", "-", "-"]
 
 def print_board():
-    print(board[0] + " | " + board[1] + " | " + board[2])
-    print(board[3] + " | " + board[4] + " | " + board[5])
-    print(board[6] + " | " + board[7] + " | " + board[8])
+    print("   " + board[0] + " | " + board[1] + " | " + board[2])
+    print("   " + board[3] + " | " + board[4] + " | " + board[5])
+    print("   " + board[6] + " | " + board[7] + " | " + board[8])
 def show_rules():
     print('''
 Welcome to Max's Tic Tac Toe!
@@ -22,19 +22,25 @@ Welcome to Max's Tic Tac Toe!
 
     ''')
 show_rules()
+def is_open(spot):
+    if board[spot] == "-":
+        return True
+    else:
+        return False
 
 turn = "playerx"
 running = True
 xsolved = False
 osolved = False
-tie = False
+tie = 0
 while running:
+    print("")
     print_board()
     #check for tie
+    tie = 0
     for index in range(0,9):
-        tie = True
-        if board[index] == "-":
-            tie = False
+        if board[index] != "-":
+            tie += 1
     #check for X win scenario
     if board[0] == "X" and board[1] == "X" and board[2] == "X":
         xsolved = True
@@ -69,23 +75,36 @@ while running:
         xsolved = True
     if board[2] == "O" and board[4] == "O" and board[6] == "O":
         xsolved = True
+    #if there is win/tie
     if xsolved == True:
         print("Game Over! Player X Wins!")
         running = False
     elif osolved == True:
         print("Game Over! Player O Wins!")
         running = False
-    elif tie == True:
+    elif tie == 9:
         print("Game Over! Tie!")
         running = False
-    else:
+    else: #let player make another move
         if turn == "playerx":
-            player_x_move = input("Player X's Turn: ")
-            location = int(player_x_move) - 1
-            board[location] = "X"
-            turn = "playero"
+            try:
+                player_x_move = input("Player X's Turn: ")
+                location = int(player_x_move) - 1
+                if is_open(location):
+                    board[location] = "X"
+                    turn = "playero"
+                else:
+                    print("Hey, that spot is already taken!")
+            except ValueError:
+                print('\033[93m' + "Please enter a number between 1 and 9" + '\033[0m')
         elif turn == "playero":
-            player_o_move = input("Player O's Turn: ")
-            location = int(player_o_move) - 1
-            board[location] = "O"
-            turn = "playerx"
+            try:
+                player_o_move = input("Player O's Turn: ")
+                location = int(player_o_move) - 1
+                if is_open(location):
+                    board[location] = "O"
+                    turn = "playerx"
+                else:
+                    print("Hey, that spot is already taken!")
+            except ValueError:
+                print("Please enter a number between 1 and 9")
