@@ -1,7 +1,7 @@
 board = ["-", "-", "-",
          "-", "-", "-",
          "-", "-", "-"]
-
+#vimtest lol
 def print_board():
     print("   " + board[0] + " | " + board[1] + " | " + board[2])
     print("   " + board[3] + " | " + board[4] + " | " + board[5])
